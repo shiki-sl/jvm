@@ -37,7 +37,7 @@ public class MyTest16 extends ClassLoader {
 
     private byte[] loadClassData(String className) {
         byte[] data = null;
-        try (InputStream in = new FileInputStream(new File(path + className + this.classLoaderName.replace(".", "/")));
+        try (InputStream in = new FileInputStream(new File(path + className.replace(".", "/")) + fileExtension);
              ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             int ch;
             while ((ch = in.read()) != -1) {
@@ -57,11 +57,15 @@ public class MyTest16 extends ClassLoader {
 
     public static void main(String[] args) throws Exception {
         MyTest16 classLoader = new MyTest16("myClassLoader");
-        classLoader.setPath("/home/shiki/code/java/code/jvm_lectrue/build/classes/java/main/");
-        Class<?> clazz = classLoader.loadClass("com.shiki.jvm.classloader.MyTest1");
-        System.out.println(clazz.getClassLoader());
+        MyTest16 classLoader2 = new MyTest16("myClassLoader2");
+        classLoader.setPath("/home/shiki/code/java/code/myClassLoader/");
+        classLoader2.setPath("/home/shiki/code/java/code/myClassLoader/");
+        Class<?> clazz = classLoader.loadClass("com.shiki.jvm.classloader.MyTest7");
+        Class<?> clazz2 = classLoader2.loadClass("com.shiki.jvm.classloader.MyTest7");
         Object o = clazz.getConstructor().newInstance();
-        System.out.println(o);
+        Object o2 = clazz2.getConstructor().newInstance();
+        System.out.println(clazz.getClassLoader());
+        System.out.println(clazz2.getClassLoader());
     }
 
 }

@@ -6,8 +6,7 @@ package com.shiki.jvm.classloader;
  * @description: My ClassLoader
  */
 public class MyTest7 {
-    public static void main(String[] args) throws ClassNotFoundException {
-        Class<?> string = Class.forName("java.lang.String");
-        System.out.println(string.getClassLoader());
+    static {
+        System.out.println("MyTest7");
     }
 }
